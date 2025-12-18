@@ -1,47 +1,40 @@
 package apsd.interfaces.containers.sequences;
 
-// import apsd.classes.utilities.Natural;
-// import apsd.interfaces.containers.base.ReallocableContainer;
+import apsd.interfaces.containers.base.ReallocableContainer;
+import apsd.classes.utilities.Natural;
 
-public interface Vector<Data> { // Must extend ReallocableContainer and MutableSequence
+public interface Vector<Data> extends ReallocableContainer, MutableSequence<Data> {
 
-  // ShiftLeft
+    //ShiftLeft
+    default void ShiftLeft(Natural positions){
+        ShiftLeft(positions, Natural.ONE);
+    }
 
-  // default void ShiftLeft(Natural pos, Natural num) {
-  //   long idx = ExcIfOutOfBound(pos);
-  //   long size = Size().ToLong();
-  //   long len = num.ToLong();
-  //   len = (len <= size - idx) ? len : size - idx;
-  //   if (len > 0) {
-  //     long iniwrt = idx;
-  //     long wrt = iniwrt;
-  //     for (long rdr = wrt + len; rdr < size; rdr++, wrt++) {
-  //       Natural natrdr = Natural.Of(rdr);
-  //       SetAt(GetAt(natrdr), Natural.Of(wrt));
-  //       SetAt(null, natrdr);
-  //     }
-  //     for (; wrt - iniwrt < len; wrt++) {
-  //       SetAt(null, Natural.Of(wrt));
-  //     }
-  //   }
-  // }
+    default void ShiftLeft(Natural positions, Natural shift){
+        for(Natural i = Natural.ZERO; i.Lessthan; i = i.Increment()){
+            ShiftLeft(positions);
+        }
+    }
 
-  // ShiftFirstLeft
+    //ShiftFirstLeft
+    public void ShiftFirstLeft(Natural positions);
 
-  // ShiftLastLeft
+    //ShiftLastLeft
+    public void ShiftLastLeft(Natural positions);
 
-  // ShiftRight
+    //ShiftRight
+    public void ShiftRight(Natural positions);
 
-  // ShiftFirstRight
+    //ShiftFirstRight
+    public void ShiftFirstRight(Natural positions);
 
-  // ShiftLastRight
+    //ShiftLastRight
+    public void ShiftLastRight(Natural positions);
 
-  // SubVector
+    /* ************************************************************************ */
+    /* Override specific member functions from Container                        */
+    /* ************************************************************************ */
 
-  /* ************************************************************************ */
-  /* Override specific member functions from Container                        */
-  /* ************************************************************************ */
-
-  // ...
-
+    @Override
+    Natural Size();
 }

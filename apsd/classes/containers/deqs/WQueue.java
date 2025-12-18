@@ -1,29 +1,33 @@
 package apsd.classes.containers.deqs;
 
-// import apsd.classes.containers.collections.concretecollections.VList;
-// import apsd.classes.utilities.Natural;
-// import apsd.interfaces.containers.base.TraversableContainer;
-// import apsd.interfaces.containers.collections.List;
-// import apsd.interfaces.containers.deqs.Queue;
+ import apsd.classes.containers.collections.concretecollections.VList;
+ import apsd.classes.utilities.Natural;
+ import apsd.interfaces.containers.base.TraversableContainer;
+ import apsd.interfaces.containers.collections.List;
+ import apsd.interfaces.containers.deqs.Queue;
 
 /** Object: Wrapper queue implementation. */
-public class WQueue<Data> { // Must implement Queue
+public class WQueue<Data> implements Queue<Data>{ // Must implement Queue
 
-  // protected final List<Data> lst;
+  protected final List<Data> lst;
 
-  // public WQueue()
+  public WQueue() {lst = new Vlist<>();}
 
-  // public WQueue(List<Data> lst)
+  public WQueue(List<Data> lst) {this.lst = lst;}
 
-  // public WQueue(TraversableContainer<Data> con)
+  public WQueue(TraversableContainer<Data> con) {
+      lst = new VList<>();
+        con.TraverseForward(dat -> {lst.InsertIfAbsent(dat); return false; });
 
-  // public WQueue(List<Data> lst, TraversableContainer<Data> con)
-
+  }
   /* ************************************************************************ */
   /* Override specific member functions from Container                        */
   /* ************************************************************************ */
 
-  // ...
+  @Override
+  public Natural Size() {
+      return lst.Size();
+  }
 
   /* ************************************************************************ */
   /* Override specific member functions from ClearableContainer               */
