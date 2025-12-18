@@ -13,7 +13,7 @@ public interface OrderedSet<Data extends Comparable<? super Data>> extends Set<D
       }
 
   // MinNRemove
-  default Data minNRemove() {
+  default Data MinNRemove() {
       Data min = Min();
       Remove(min);
       return min;
@@ -30,7 +30,7 @@ public interface OrderedSet<Data extends Comparable<? super Data>> extends Set<D
         }
 
   // MaxNRemove
-    default Data maxNRemove() {
+    default Data MaxNRemove() {
         Data max = Max();
         Remove(max);
         return max;
@@ -59,7 +59,7 @@ public interface OrderedSet<Data extends Comparable<? super Data>> extends Set<D
     }
 
   // PredecessorNRemove
-    default Data predecessorNRemove(Data dat) {
+    default Data PredecessorNRemove(Data dat) {
         Data predecessor = Predecessor(dat);
         if (predecessor != null) {
             Remove(predecessor);

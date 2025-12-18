@@ -11,48 +11,23 @@ public interface DynVector<Data> extends ResizableContainer, InsertableAtSequenc
   /* ************************************************************************ */
 
   @Override
-  public default void InsertAt(Data dato, Natural position) {
-      if (position == null) throw new NullPointerException("position cannot be null");
-      long idx = position.ToLong();
-      long sz = Size().ToLong();
-      if (idx > sz) throw new IndexOutOfBoundsException("Index out of bounds: " + idx + "; Size: " + Size() + "!");
-      // sposto a destra idx volte per creare spazio
-      for (long i = 0; i < idx; i++) {
-          this.ShiftRight(Natural.Of(1));
-      }
-      // inserisco l'elemento in prima posizione (ora libera)
-      this.InsertFirst(dato);
-      // riporto la sequenza alla posizione originale
-      for (long i = 0; i < idx; i++) {
-          this.ShiftLeft(Natural.Of(1));
-      }
-  }
-
+    void InsertAt(Data data, Natural position);
   /* ************************************************************************ */
   /* Override specific member functions from RemovableAtSequence              */
   /* ************************************************************************ */
 
     @Override
-    public default void RemoveAt(Natural position) {
-        if (position == null) throw new NullPointerException("position cannot be null");
-        long idx = position.ToLong();
-        long sz = Size().ToLong();
-        if (idx >= sz) throw new IndexOutOfBoundsException("Index out of bounds: " + idx + "; Size: " + Size() + "!");
-        // sposto a sinistra idx volte per portare l'elemento in posizione 0
-        for (long i = 0; i < idx; i++) {
-            this.ShiftLeft(Natural.Of(1));
-        }
-        // rimuovo il primo (era l'elemento alla posizione richiesta)
-        this.RemoveFirst();
-        // riporto la sequenza alla posizione originale
-        for (long i = 0; i < idx; i++) {
-            this.ShiftRight(Natural.Of(1));
-        }
-    }
+    Data AtNRemove(Natural position);
     /* ************************************************************************ */
   /* Specific member functions of Vector                                       */
   /* ************************************************************************ */
 
+    @Override
+    void ShiftLeft(Natural position, Natural number);
+
+    void ShiftRight(Natural position, Natural number);
+
+    DynVector<Data> SubVector(Natural start, Natural end);
 
 
   /* ************************************************************************ */

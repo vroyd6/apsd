@@ -21,7 +21,7 @@ abstract public class WOrderedSetBase<Data extends Comparable<? super Data>, Chn
   /* ************************************************************************ */
 
     @Override
-    public boolean isEqual(IterableContainer<Data> con) {return chn.isEqual (con);}
+    public boolean IsEqual(IterableContainer<Data> con) {return chn.IsEqual (con);}
 
   /* ************************************************************************ */
   /* Override specific member functions from OrderedSet                       */

@@ -1,8 +1,10 @@
 package apsd.interfaces.containers.base;
 
+import apsd.classes.utilities.Box;
 import apsd.interfaces.containers.iterators.BackwardIterator;
 import apsd.interfaces.containers.iterators.ForwardIterator;
 import apsd.interfaces.containers.iterators.MutableForwardIterator;
+import apsd.interfaces.traits.Accumulator;
 import apsd.interfaces.traits.Predicate;
 
 /** Interface: TraversableContainer con supporto all'iterazione. */
@@ -14,8 +16,8 @@ public interface IterableContainer<Data> extends TraversableContainer<Data> {
     //BIterator
     BackwardIterator<Data> BIterator();
 
-    //isEqual
-    default boolean isEqual(IterableContainer<Data> con) {
+    //IsEqual
+    default boolean IsEqual(IterableContainer<Data> con) {
         if (con == null) {
             return false;
         }
@@ -41,6 +43,34 @@ public interface IterableContainer<Data> extends TraversableContainer<Data> {
     /* Override specific member functions from TraversableContainer             */
     /* ************************************************************************ */
 
+    @Override
+    boolean TraverseForward(Predicate<Data> fun);
 
+    @Override
+    boolean TraverseBackward(Predicate<Data> fun);
+
+    @Override
+    default <Acc> Acc FoldForward(Accumulator<Data, Acc> fun, Acc ini) {
+        final Box<Acc> acc = new Box<>(ini);
+        if (fun != null) {
+            this.TraverseForward(dat -> {
+                acc.Set(fun.Apply(dat, acc.Get()));
+                return false;
+            });
+        }
+        return acc.Get();
+    }
+
+    @Override
+    default <Acc> Acc FoldBackward(Accumulator<Data, Acc> fun, Acc ini) {
+        final Box<Acc> acc = new Box<>(ini);
+        if (fun != null) {
+            this.TraverseBackward(dat -> {
+                acc.Set(fun.Apply(dat, acc.Get()));
+                return false;
+            });
+        }
+        return acc.Get();
+    }
 
 }

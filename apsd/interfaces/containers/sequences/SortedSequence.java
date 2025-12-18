@@ -12,12 +12,7 @@ public interface SortedSequence<Data extends Comparable<? super Data>> extends S
 
     @Override
     default boolean Exists(Data dat) {
-        Natural pos = Search(dat);
-        if (pos.Equals(Natural.NEGATIVE_ONE)) {
-            return false;
-        }
-        Data found = GetAt(pos);
-        return found.equals(dat);
+        return Search(dat) != null;
     }
 
   /* ************************************************************************ */
@@ -25,6 +20,19 @@ public interface SortedSequence<Data extends Comparable<? super Data>> extends S
   /* ************************************************************************ */
 
   @Override
-    Natural Search(Data dat);
+    default Natural Search(Data dat){
+        if (dat == null) return null;
+        long left = 0;
+        long right = Size().ToLong() - 1;
+        while (left <= right) {
+            long mid = (left + right) / 2;
+            Data midVal = GetAt(Natural.Of(mid));
+            int cmp = midVal.compareTo(dat);
+            if (cmp < 0) left = mid + 1;
+            else if (cmp > 0) right = mid - 1;
+            else return Natural.Of(mid);
+        }
+        return null;
+  }
 
 }

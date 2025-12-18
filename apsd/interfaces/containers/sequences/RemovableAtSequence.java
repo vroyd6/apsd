@@ -3,24 +3,38 @@ package apsd.interfaces.containers.sequences;
 import apsd.classes.utilities.Natural;
 
 /** Interface: Sequence con supporto alla rimozione di un dato tramite posizione. */
-public interface RemovableAtSequence<Data> extends Sequence<Data>{ // Must extend Sequence
+public interface RemovableAtSequence<Data> extends Sequence<Data>{
 
   // RemoveAt
-  public void RemoveAt(Natural position);
+  void RemoveAt(Natural position);
 
   // AtNRemove
-  public void AtNRemove(Natural position, Natural n);
+  default Data AtNRemove(Natural position){
+    Data removed = GetAt(position);
+    RemoveAt(position);
+    return removed;
+  }
 
   // RemoveFirst
-  public void RemoveFirst();
+  default void RemoveFirst(){
+    if(Size().equals(Natural.ZERO)) return;
+    RemoveAt(Natural.ZERO);
+  }
 
   // FirstNRemove
-  public void FirstNRemove(int n);
+  default void FirstNRemove(){
+        RemoveAt(Natural.ZERO);
+  }
 
   // RemoveLast
-  public void RemoveLast();
+  default void RemoveLast(){
+    if (Size().equals(Natural.ZERO)) return;
+      RemoveAt(Size().Decrement());
+  }
 
   // LastNRemove
-  public void LastNRemove(int n);
+  default void LastNRemove(){;
+       RemoveAt(Size().Decrement());
+  }
 
 }

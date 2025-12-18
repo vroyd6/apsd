@@ -6,13 +6,17 @@ import apsd.interfaces.containers.base.InsertableContainer;
 public interface Queue<Data> extends ClearableContainer, InsertableContainer<Data> { // Must extend ClearableContainer and InsertableContainer
 
   // Head
-  public Data Head();
+  Data Head();
   // Dequeue
-  public Data Dequeue();
+  Data Dequeue();
   // HeadNDequeue
-  public Data HeadNDequeue();
+  default Data HeadNDequeue(){
+        Data head = Head();
+        Dequeue();
+        return head;
+  }
   // Enqueue
-   public Data Enqueue(Data dat);
+  Data Enqueue(Data dat);
 
   /* ************************************************************************ */
   /* Override specific member functions from ClearableContainer               */

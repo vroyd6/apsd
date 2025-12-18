@@ -8,4 +8,6 @@ public interface Container {
   Natural Size();
 
   default boolean isEmpty() { return Size().IsZero(); }
+
+    void Clear();
 }

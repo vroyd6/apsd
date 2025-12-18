@@ -16,6 +16,7 @@ public interface Sequence<Data> extends IterableContainer<Data> {
         return itr.GetCurrent();
     }
 
+
   // GetFirst
     default Data GetNext(Natural pos) {
         return GetAt(Natural.ZERO);
@@ -48,6 +49,75 @@ public interface Sequence<Data> extends IterableContainer<Data> {
    }
 
   // SubSequence
-    public Sequence<Data> SubSequence(Data[] data, Natural position, Natural n);
+  default Sequence<Data> SubSequence(Natural start, Natural end) {
+      if (start == null || end == null)
+          throw new NullPointerException("Natural numbers cannot be null!");
+
+      long s = start.ToLong();
+      long e = end.ToLong();
+
+      if (s < 0 || e > Size().ToLong() || s > e)
+          throw new IndexOutOfBoundsException(
+                  "Invalid subsequence range: [" + s + "," + e + "), size=" + Size()
+          );
+
+      Sequence<Data> original = this;
+
+      return new Sequence<>() {
+
+          @Override
+          public Data GetAt(Natural pos) {
+              long idx = pos.ToLong();
+              if (idx < 0 || idx >= (e - s))
+                  throw new IndexOutOfBoundsException("Index out of bounds in subsequence");
+              return original.GetAt(Natural.Of(s + idx));
+          }
+
+          @Override
+          public Natural Size() {
+              return Natural.Of(e - s);
+          }
+
+          @Override
+          public boolean isEmpty() {
+              return Size().equals(Natural.ZERO);
+          }
+
+          @Override
+          public boolean TraverseForward(apsd.interfaces.traits.Predicate<Data> fun) {
+              if (fun == null) return false;
+              for (long i = 0; i < Size().ToLong(); i++) {
+                  if (fun.Apply(GetAt(Natural.Of(i)))) return true;
+              }
+              return false;
+          }
+
+          @Override
+          public boolean TraverseBackward(apsd.interfaces.traits.Predicate<Data> fun) {
+              if (fun == null) return false;
+              for (long i = Size().ToLong() - 1; i >= 0; i--) {
+                  if (fun.Apply(GetAt(Natural.Of(i)))) return true;
+              }
+              return false;
+          }
+
+          @Override
+          public boolean Exists(Data dat) {
+              for (long i = 0; i < Size().ToLong(); i++) {
+                  Data current = GetAt(Natural.Of(i));
+                  if (current == null ? dat == null : current.equals(dat)) return true;
+              }
+              return false;
+          }
+
+          @Override
+          public void Clear() {
+              throw new UnsupportedOperationException(
+                      "Cannot Clear() a SubSequence view"
+              );
+          }
+      };
+  }
+
 
 }

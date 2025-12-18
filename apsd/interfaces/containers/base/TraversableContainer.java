@@ -52,11 +52,6 @@ public interface TraversableContainer<Data> extends MembershipContainer<Data> {
     /* Override specific member functions from MembershipContainer              */
     /* ************************************************************************ */
 
-    default boolean Exists(Predicate<Data> dat) {
-        if (dat == null) {
-            return false;
-        }
-        return TraverseForward(dat);
-    }
-
+    @Override
+    boolean Exists(Data dat);
 }

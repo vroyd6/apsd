@@ -8,12 +8,16 @@ import apsd.classes.utilities.Natural;
 public interface InsertableAtSequence<Data> extends Sequence<Data> { // Must extend Sequence
 
   // InsertAt
-    public void InsertAt(Data dato, Natural position);
+  void InsertAt(Data dato, Natural position);
 
   // InsertFirst
-    public void InsertFirst(Data dato);
+  default void InsertFirst(Data dato) {
+    InsertAt(dato, Natural.ZERO);
+  }
 
   // InsertLast
-    public void InsertLast(Data dato);
+  default void InsertLast(Data dato){
+    InsertAt(dato, Size());
+  }
 
 }
