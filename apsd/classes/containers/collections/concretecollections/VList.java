@@ -131,10 +131,16 @@ public class VList<Data> extends VChainBase<Data> implements List<Data> { // Mus
         return new VList<>(subVec);
     }
 
+
+
     @Override
-    public List<Data> SubList(Natural start, Natural end) {
-        DynVector<Data> subVec = vec.SubVector(start, end);
-        return new VList<>(subVec);
+    protected VChainBase<Data> NewChain(DynVector<Data> vec) {
+        return new VList<>(vec);
     }
 
+
+    @Override
+    public List<Data> SubList(Natural fromIndex, Natural toIndex) {
+        return SubSequence(fromIndex, toIndex);
+    }
 }

@@ -8,7 +8,7 @@ public interface Queue<Data> extends ClearableContainer, InsertableContainer<Dat
   // Head
   Data Head();
   // Dequeue
-  Data Dequeue();
+  void Dequeue();
   // HeadNDequeue
   default Data HeadNDequeue(){
         Data head = Head();

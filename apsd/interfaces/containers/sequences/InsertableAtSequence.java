@@ -1,6 +1,5 @@
 package apsd.interfaces.containers.sequences;
 
-// import apsd.classes.utilities.Natural;
 
 import apsd.classes.utilities.Natural;
 

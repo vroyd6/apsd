@@ -353,7 +353,7 @@ public class LLList<Data> extends LLChainBase<Data> implements List<Data> { // M
     }
 
     @Override
-    public List<Data> subList(Natural fromIndex, Natural toIndex) {
+    public List<Data> SubList(Natural fromIndex, Natural toIndex) {
         return (List<Data>) this.SubSequence(fromIndex, toIndex);
     }
 

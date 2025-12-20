@@ -8,11 +8,13 @@ import apsd.interfaces.containers.iterators.ForwardIterator;
 import apsd.interfaces.traits.Predicate;
 
 /** Object: Wrapper set implementation via chain. */
-abstract public class WSet<Data> extends WSetBase<Data, Chain<Data>>{
+public class WSet<Data> extends WSetBase<Data, Chain<Data>> {
 
-  public WSet() {super();}
+    public WSet() {
+        super();
+    }
 
-  public WSet(Chain<Data> chn) {
+    public WSet(Chain<Data> chn) {
         super();
         if (chn != null) {
             chn.TraverseForward(dat -> {
@@ -20,11 +22,13 @@ abstract public class WSet<Data> extends WSetBase<Data, Chain<Data>>{
                 return false;
             });
         }
-  }
+    }
 
-  public WSet(TraversableContainer<Data> con) {super(con);}
+    public WSet(TraversableContainer<Data> con) {
+        super(con);
+    }
 
-  public WSet(Chain<Data> chn, TraversableContainer<Data> con) {
+    public WSet(Chain<Data> chn, TraversableContainer<Data> con) {
         super();
         if (chn != null) {
             chn.TraverseForward(dat -> {
@@ -38,10 +42,12 @@ abstract public class WSet<Data> extends WSetBase<Data, Chain<Data>>{
                 return false;
             });
         }
-  }
+    }
 
-  @Override
-  protected void ChainAlloc() { chn = new VList<>(); }
+    @Override
+    protected void ChainAlloc() {
+        chn = new VList<>();
+    }
 
     @Override
     public boolean TraverseForward(Predicate<Data> fun) {
@@ -71,6 +77,8 @@ abstract public class WSet<Data> extends WSetBase<Data, Chain<Data>>{
         return false;
     }
 
-  @Override
-  abstract protected WSetBase<Data, Chain<Data>> NewInstance();
+    @Override
+    protected WSetBase<Data, Chain<Data>> NewInstance() {
+        return new WSet<>();
+    }
 }
