@@ -5,28 +5,37 @@ import apsd.interfaces.containers.base.MutableIterableContainer;
 import apsd.interfaces.containers.iterators.MutableForwardIterator;
 
 /** Interface: Sequence & MutableIterableContainer con supporto alla scrittura tramite posizione. */
-public interface MutableSequence<Data> extends Sequence<Data>, MutableIterableContainer<Data> { // Must extend Sequence and MutableIterableContainer
+public interface MutableSequence<Data> extends Sequence<Data>, MutableIterableContainer<Data> {
 
-  // SetAt
-    void SetAt(Data dato, Natural position);
+ void SetAt(Data dat, Natural pos);
 
-  // GetNSetAt
-    void GetNSetAt(Data[] data, Natural position, Natural n);
+  default Data GetNSetAt(Data dat, Natural pos) {
+    Data old = GetAt(pos);
+    SetAt(dat, pos);
+    return old;
+  }
 
-  // SetFirst
-    void SetFirst(Data dato);
+  default void SetFirst(Data dat) {
+    SetAt(dat, Natural.ZERO);
+  }
 
-  // GetNSetFirst
-    void GetNSetFirst(Data[] data, Natural n);
+  default Data GetNSetFirst(Data dat) {
+    return GetNSetAt(dat, Natural.ZERO);
+  }
 
-  // SetLast
-    void SetLast(Data dato);
+  default void SetLast(Data dat) {
+    SetAt(dat, isEmpty() ? Natural.ZERO : Size().Decrement());
+  }
 
-  // GetNSetLast
-    void GetNSetLast(Data[] data, Natural n);
+  default Data GetNSetLast(Data dat) {
+    return GetNSetAt(dat, isEmpty() ? Natural.ZERO : Size().Decrement());
+  }
 
-  // Swap
-    void Swap(Natural pos1, Natural pos2);
+  default void Swap(Natural pos1, Natural pos2) {
+    Data temp = GetAt(pos1);
+    SetAt(GetAt(pos2), pos1);
+    SetAt(temp, pos2);
+  }
 
   /* ************************************************************************ */
   /* Override specific member functions from Sequence                         */
@@ -34,5 +43,6 @@ public interface MutableSequence<Data> extends Sequence<Data>, MutableIterableCo
 
   @Override
   MutableSequence<Data> SubSequence(Natural from, Natural to);
+
 
 }

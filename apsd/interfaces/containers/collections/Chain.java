@@ -9,7 +9,7 @@ import apsd.interfaces.traits.Predicate;
 public interface Chain<Data> extends RemovableAtSequence<Data>, Set<Data>{
 
   // InsertIfAbsent
-   public void InsertIfAbsent(Data element);
+   boolean InsertIfAbsent(Data element);
 
   // RemoveOccurrences
   public void RemoveOccurrences(Data element);

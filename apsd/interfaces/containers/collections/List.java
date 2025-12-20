@@ -7,7 +7,7 @@ import apsd.interfaces.containers.sequences.MutableSequence;
 public interface List<Data> extends MutableSequence<Data>, InsertableAtSequence<Data>, Chain<Data> {
 
   // SubList
-  List<Data> subList(Natural fromIndex, Natural toIndex);
+  List<Data> SubList(Natural fromIndex, Natural toIndex);
 
   default boolean Insert(Data dat) {
     InsertFirst(dat);

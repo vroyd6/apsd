@@ -11,10 +11,14 @@ import apsd.interfaces.traits.Predicate;
 public interface IterableContainer<Data> extends TraversableContainer<Data> {
 
     //FIterator
-    MutableForwardIterator<Data> FIterator();
+    default MutableForwardIterator<Data> FIterator(){
+        throw new UnsupportedOperationException("FIterator must be implemented by concrete class");
+    }
 
     //BIterator
-    BackwardIterator<Data> BIterator();
+    default BackwardIterator<Data> BIterator(){
+        throw new UnsupportedOperationException("BIterator must be implemented by concrete class");
+    }
 
     //IsEqual
     default boolean IsEqual(IterableContainer<Data> con) {

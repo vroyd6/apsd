@@ -22,8 +22,10 @@ public interface RemovableAtSequence<Data> extends Sequence<Data>{
   }
 
   // FirstNRemove
-  default void FirstNRemove(){
-        RemoveAt(Natural.ZERO);
+
+
+  default Data FirstNRemove(){
+      return AtNRemove(Natural.ZERO);
   }
 
   // RemoveLast
@@ -33,8 +35,8 @@ public interface RemovableAtSequence<Data> extends Sequence<Data>{
   }
 
   // LastNRemove
-  default void LastNRemove(){;
-       RemoveAt(Size().Decrement());
+  default Data LastNRemove(){;
+        return AtNRemove(Size().Decrement());
   }
 
 }

@@ -90,7 +90,7 @@ public interface OrderedSet<Data extends Comparable<? super Data>> extends Set<D
     }
 
   // SuccessorNRemove
-    default Data successorNRemove(Data dat) {
+    default Data SuccessorNRemove(Data dat) {
         Data successor = Successor(dat);
         if (successor != null) {
             Remove(successor);
